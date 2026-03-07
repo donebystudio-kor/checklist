@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "체크리스트 모음 개인정보처리방침",
+  description: "TickTickList 개인정보처리방침",
 };
 
 export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold text-slate-900 mb-2">개인정보처리방침</h1>
-      <p className="text-sm text-slate-400 mb-8">최종 업데이트: 2025년 1월 1일</p>
+      <p className="text-sm text-slate-400 mb-8">최종 업데이트: 2026년 3월 7일</p>
 
       <div className="prose prose-slate max-w-none space-y-8 text-slate-700">
         <section>
           <h2 className="text-lg font-semibold text-slate-800 mb-3">1. 개요</h2>
           <p className="text-sm leading-relaxed">
-            체크리스트 모음(이하 &ldquo;서비스&rdquo;)은 이용자의 개인정보를 중요하게 생각합니다.
+            TickTickList(이하 &ldquo;서비스&rdquo;)은 이용자의 개인정보를 중요하게 생각합니다.
             본 서비스는 이용자의 개인정보를 수집하거나 서버에 저장하지 않습니다.
             체크리스트의 진행 상황은 이용자의 기기 내 로컬 스토리지(Local Storage)에만 저장되며,
             외부 서버로 전송되지 않습니다.
@@ -41,8 +41,8 @@ export default function PrivacyPage() {
             로컬 스토리지는 쿠키와 달리 서버로 자동 전송되지 않으며, 해당 기기와 브라우저에서만 접근 가능합니다.
           </p>
           <p className="text-sm leading-relaxed mt-2">
-            본 서비스는 Google Analytics 등 외부 분석 도구를 사용할 수 있으나,
-            이 경우 개인을 식별할 수 없는 익명 통계 데이터만 수집됩니다.
+            본 서비스는 Google AdSense를 통해 광고를 제공할 수 있으며, 이 과정에서 Google이 쿠키를 사용하여
+            이용자의 관심사에 맞는 광고를 표시할 수 있습니다. 개인을 식별할 수 없는 익명 통계 데이터만 수집됩니다.
           </p>
         </section>
 
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
           <p className="text-sm leading-relaxed">
             개인정보처리방침에 관한 문의사항이 있으시면 아래로 연락해 주세요.
           </p>
-          <p className="text-sm mt-2 text-slate-500">서비스명: 체크리스트 모음</p>
+          <p className="text-sm mt-2 text-slate-500">서비스명: TickTickList</p>
         </section>
       </div>
     </div>

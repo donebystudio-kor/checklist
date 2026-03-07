@@ -1,4 +1,4 @@
-import { categories } from "@/data/checklists";
+import { categories, recentChecklists, getChecklistBySlug, getCategoryBySlug } from "@/data/checklists";
 import SearchBar from "@/components/SearchBar";
 
 export default function HomePage() {
@@ -7,6 +7,24 @@ export default function HomePage() {
     (sum, cat) => sum + cat.checklists.reduce((s, cl) => s + cl.items.length, 0),
     0
   );
+
+  const popular = [
+    { categorySlug: "life", slug: "jjatu-start" },
+    { categorySlug: "job", slug: "interview" },
+    { categorySlug: "travel", slug: "overseas-travel" },
+    { categorySlug: "home", slug: "jeonse-contract" },
+    { categorySlug: "event", slug: "wedding" },
+    { categorySlug: "family", slug: "childbirth" },
+    { categorySlug: "job", slug: "resignation" },
+    { categorySlug: "buy", slug: "laptop" },
+  ];
+
+  const recentItems = recentChecklists.map(({ categorySlug, slug }) => ({
+    cat: getCategoryBySlug(categorySlug)!,
+    cl: getChecklistBySlug(categorySlug, slug)!,
+    categorySlug,
+    slug,
+  }));
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -26,6 +44,31 @@ export default function HomePage() {
           <span><strong className="text-slate-700">{totalChecklists}</strong>개 체크리스트</span>
           <span className="text-slate-200">|</span>
           <span><strong className="text-slate-700">{totalItems}+</strong>개 항목</span>
+        </div>
+      </section>
+
+      {/* 최근 추가된 체크리스트 */}
+      <section className="mb-14">
+        <div className="flex items-center gap-2 mb-5">
+          <span className="text-base font-semibold text-slate-800">최근 추가된 체크리스트</span>
+          <span className="text-xs bg-blue-100 text-blue-600 rounded-full px-2 py-0.5 font-medium">NEW</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {recentItems.map(({ cat, cl, categorySlug, slug }) => (
+            <a
+              key={`${categorySlug}-${slug}`}
+              href={`/${categorySlug}/${slug}`}
+              className="block bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-2xl">{cat.icon}</span>
+                <span className={`text-xs font-medium ${cat.color}`}>{cat.name}</span>
+              </div>
+              <div className="font-semibold text-slate-800 text-sm mb-1 group-hover:text-blue-600 transition-colors">{cl.title}</div>
+              <div className="text-xs text-slate-500 line-clamp-2 mb-3">{cl.description}</div>
+              <div className="text-xs text-slate-400 bg-slate-50 rounded-lg px-2 py-1 inline-block">{cl.items.length}개 항목</div>
+            </a>
+          ))}
         </div>
       </section>
 
@@ -67,18 +110,10 @@ export default function HomePage() {
       <section className="mt-14">
         <h2 className="text-xl font-semibold text-slate-800 mb-6">인기 체크리스트</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {[
-            { categorySlug: "life", slug: "jjatu-start", label: "자취 시작" },
-            { categorySlug: "life", slug: "moving", label: "이사 준비" },
-            { categorySlug: "job", slug: "interview", label: "면접 준비" },
-            { categorySlug: "travel", slug: "overseas-travel", label: "해외여행" },
-            { categorySlug: "buy", slug: "jeonse-contract", label: "전세 계약" },
-            { categorySlug: "event", slug: "wedding", label: "결혼 준비" },
-            { categorySlug: "job", slug: "resignation", label: "퇴사 전" },
-            { categorySlug: "event", slug: "childbirth", label: "출산 준비" },
-          ].map(({ categorySlug, slug, label }) => {
-            const cat = categories.find((c) => c.slug === categorySlug)!;
-            const cl = cat.checklists.find((c) => c.slug === slug)!;
+          {popular.map(({ categorySlug, slug }) => {
+            const cat = getCategoryBySlug(categorySlug)!;
+            const cl = getChecklistBySlug(categorySlug, slug)!;
+            if (!cat || !cl) return null;
             return (
               <a
                 key={`${categorySlug}-${slug}`}
