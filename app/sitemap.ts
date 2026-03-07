@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { categories } from "@/data/checklists";
 
-const BASE_URL = "https://checklist-hub.vercel.app";
+const BASE_URL = "https://checklist-seven-woad.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
