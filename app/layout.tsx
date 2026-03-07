@@ -49,6 +49,7 @@ export default function RootLayout({
             </a>
             <nav className="flex items-center gap-4 text-sm text-slate-500">
               <a href="/" className="hover:text-slate-900 transition-colors">홈</a>
+              <a href="/my" className="hover:text-slate-900 transition-colors">내 체크리스트</a>
               <a href="/privacy" className="hover:text-slate-900 transition-colors">개인정보처리방침</a>
             </nav>
           </div>
