@@ -1,65 +1,129 @@
-import Image from "next/image";
+import { categories } from "@/data/checklists";
+import SearchBar from "@/components/SearchBar";
 
-export default function Home() {
+export default function HomePage() {
+  const totalChecklists = categories.reduce((sum, cat) => sum + cat.checklists.length, 0);
+  const totalItems = categories.reduce(
+    (sum, cat) => sum + cat.checklists.reduce((s, cl) => s + cl.items.length, 0),
+    0
+  );
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="max-w-5xl mx-auto px-4 py-10">
+      {/* Hero */}
+      <section className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-slate-900 mb-3 tracking-tight">
+          상황별 완벽 체크리스트
+        </h1>
+        <p className="text-lg text-slate-500 mb-8">
+          자취·이사·취업·여행·결혼·출산 등 인생의 중요한 순간,<br className="hidden sm:block" />
+          빠트리지 말아야 할 것들을 한곳에서 확인하세요.
+        </p>
+        <SearchBar />
+        <div className="flex items-center justify-center gap-6 mt-6 text-sm text-slate-400">
+          <span><strong className="text-slate-700">{categories.length}</strong>개 카테고리</span>
+          <span className="text-slate-200">|</span>
+          <span><strong className="text-slate-700">{totalChecklists}</strong>개 체크리스트</span>
+          <span className="text-slate-200">|</span>
+          <span><strong className="text-slate-700">{totalItems}+</strong>개 항목</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Categories */}
+      <section>
+        <h2 className="text-xl font-semibold text-slate-800 mb-6">카테고리</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {categories.map((cat) => (
+            <a
+              key={cat.slug}
+              href={`/${cat.slug}`}
+              className={`block p-5 rounded-xl border ${cat.bgColor} hover:shadow-md transition-all group`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-3xl">{cat.icon}</span>
+                <div>
+                  <h3 className={`font-bold text-lg ${cat.color} group-hover:underline`}>{cat.name}</h3>
+                  <p className="text-xs text-slate-500">{cat.checklists.length}개 체크리스트</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 mb-3">{cat.description}</p>
+              <ul className="space-y-1">
+                {cat.checklists.slice(0, 3).map((cl) => (
+                  <li key={cl.slug} className="text-xs text-slate-500 flex items-center gap-1.5">
+                    <span className="text-slate-300">›</span>
+                    {cl.title}
+                  </li>
+                ))}
+                {cat.checklists.length > 3 && (
+                  <li className="text-xs text-slate-400">+ {cat.checklists.length - 3}개 더 보기</li>
+                )}
+              </ul>
+            </a>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* Popular */}
+      <section className="mt-14">
+        <h2 className="text-xl font-semibold text-slate-800 mb-6">인기 체크리스트</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {[
+            { categorySlug: "life", slug: "jjatu-start", label: "자취 시작" },
+            { categorySlug: "life", slug: "moving", label: "이사 준비" },
+            { categorySlug: "job", slug: "interview", label: "면접 준비" },
+            { categorySlug: "travel", slug: "overseas-travel", label: "해외여행" },
+            { categorySlug: "buy", slug: "jeonse-contract", label: "전세 계약" },
+            { categorySlug: "event", slug: "wedding", label: "결혼 준비" },
+            { categorySlug: "job", slug: "resignation", label: "퇴사 전" },
+            { categorySlug: "event", slug: "childbirth", label: "출산 준비" },
+          ].map(({ categorySlug, slug, label }) => {
+            const cat = categories.find((c) => c.slug === categorySlug)!;
+            const cl = cat.checklists.find((c) => c.slug === slug)!;
+            return (
+              <a
+                key={`${categorySlug}-${slug}`}
+                href={`/${categorySlug}/${slug}`}
+                className="flex items-center gap-4 bg-white border border-slate-200 rounded-xl px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all group"
+              >
+                <span className="text-2xl">{cat.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-slate-800 text-sm group-hover:text-blue-600 transition-colors">{cl.title}</div>
+                  <div className="text-xs text-slate-400 mt-0.5 truncate">{cl.description.slice(0, 35)}...</div>
+                </div>
+                <span className="text-xs text-slate-300 bg-slate-100 rounded-full px-2 py-0.5 whitespace-nowrap">{cl.items.length}개</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Feature description */}
+      <section className="mt-14 bg-white border border-slate-200 rounded-2xl p-8">
+        <h2 className="text-lg font-semibold text-slate-800 mb-5">이런 기능을 제공해요</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="flex gap-3">
+            <span className="text-2xl">✅</span>
+            <div>
+              <div className="font-medium text-slate-800 text-sm">직접 체크 가능</div>
+              <div className="text-xs text-slate-500 mt-1">항목을 직접 체크하며 진행 상황을 확인하세요. 브라우저를 닫아도 저장됩니다.</div>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">📊</span>
+            <div>
+              <div className="font-medium text-slate-800 text-sm">진행률 표시</div>
+              <div className="text-xs text-slate-500 mt-1">전체 항목 중 완료된 항목 수와 진행률을 실시간으로 확인할 수 있습니다.</div>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">🙈</span>
+            <div>
+              <div className="font-medium text-slate-800 text-sm">완료 항목 숨기기</div>
+              <div className="text-xs text-slate-500 mt-1">완료한 항목을 숨겨서 남은 할 일에만 집중할 수 있습니다.</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
