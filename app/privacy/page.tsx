@@ -84,6 +84,7 @@ export default function PrivacyPage() {
             개인정보처리방침에 관한 문의사항이 있으시면 아래로 연락해 주세요.
           </p>
           <p className="text-sm mt-2 text-slate-500">서비스명: TickTickList</p>
+          <p className="mt-2 text-[#8888AA]">이메일: donebystudio@gmail.com</p>
         </section>
       </div>
     </div>

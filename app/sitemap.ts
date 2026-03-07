@@ -3,19 +3,19 @@ import { categories } from "@/data/checklists";
 
 const BASE_URL = "https://checklist-seven-woad.vercel.app";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+const LAST_UPDATED = new Date("2026-03-07");
 
+export default function sitemap(): MetadataRoute.Sitemap {
   const home: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: now,
+      lastModified: LAST_UPDATED,
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${BASE_URL}/privacy`,
-      lastModified: now,
+      lastModified: LAST_UPDATED,
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((cat) => ({
     url: `${BASE_URL}/${cat.slug}`,
-    lastModified: now,
+    lastModified: LAST_UPDATED,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const checklistPages: MetadataRoute.Sitemap = categories.flatMap((cat) =>
     cat.checklists.map((cl) => ({
       url: `${BASE_URL}/${cat.slug}/${cl.slug}`,
-      lastModified: now,
+      lastModified: LAST_UPDATED,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     }))
