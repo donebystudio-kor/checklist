@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>",
+  },
   title: {
     default: "TickTickList - 상황별 완벽 체크리스트",
     template: "%s | TickTickList",
@@ -39,6 +43,18 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7048160642416104"
           crossOrigin="anonymous"
         />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-FSXESQWFE4"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FSXESQWFE4');
+          `}
+        </Script>
       </head>
       <body className="min-h-screen bg-slate-50 antialiased">
         <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
