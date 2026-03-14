@@ -38,9 +38,10 @@ export default function HomePage() {
           {categories.map((cat) => {
             const catChecklists = getChecklistsByCategory(cat.slug);
             return (
-              <div
+              <a
                 key={cat.slug}
-                className={`p-5 rounded-xl border ${cat.bgColor}`}
+                href={`#${cat.slug}`}
+                className={`block p-5 rounded-xl border ${cat.bgColor} hover:shadow-md transition-all`}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-3xl">{cat.icon}</span>
@@ -65,7 +66,7 @@ export default function HomePage() {
                     <li className="text-xs text-slate-400">+ {catChecklists.length - 4}개 더</li>
                   )}
                 </ul>
-              </div>
+              </a>
             );
           })}
         </div>
@@ -103,7 +104,7 @@ export default function HomePage() {
       {categories.map((cat) => {
         const catChecklists = getChecklistsByCategory(cat.slug);
         return (
-          <section key={cat.slug} className="mb-10">
+          <section key={cat.slug} id={cat.slug} className="mb-10 scroll-mt-20">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xl">{cat.icon}</span>
               <h2 className={`text-lg font-semibold ${cat.color}`}>{cat.name}</h2>
