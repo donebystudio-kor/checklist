@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAllChecklists, getCategoryBySlug } from "@/data/checklists";
+import { checklists, getCategoryBySlug, getTotalItems } from "@/data/checklists";
 import type { Checklist } from "@/data/checklists";
 
 interface ChecklistProgress {
   checklist: Checklist;
   categoryName: string;
   categoryIcon: string;
-  categorySlug: string;
   checkedCount: number;
   total: number;
   percent: number;
@@ -19,26 +18,17 @@ export default function MyChecklistsView() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const all = getAllChecklists();
     const result: ChecklistProgress[] = [];
 
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (!key?.startsWith("checklist_")) continue;
 
-      const rest = key.slice("checklist_".length);
-      const firstUnderscore = rest.indexOf("_");
-      if (firstUnderscore === -1) continue;
-
-      const categorySlug = rest.slice(0, firstUnderscore);
-      const slug = rest.slice(firstUnderscore + 1);
-
-      const checklist = all.find(
-        (cl) => cl.categorySlug === categorySlug && cl.slug === slug
-      );
+      const slug = key.slice("checklist_".length);
+      const checklist = checklists.find((cl) => cl.slug === slug);
       if (!checklist) continue;
 
-      const cat = getCategoryBySlug(categorySlug);
+      const cat = getCategoryBySlug(checklist.categorySlug);
       if (!cat) continue;
 
       let checkedIds: string[] = [];
@@ -48,7 +38,7 @@ export default function MyChecklistsView() {
 
       if (checkedIds.length === 0) continue;
 
-      const total = checklist.items.length;
+      const total = getTotalItems(checklist);
       const checkedCount = checkedIds.length;
       const percent = Math.round((checkedCount / total) * 100);
 
@@ -56,7 +46,6 @@ export default function MyChecklistsView() {
         checklist,
         categoryName: cat.name,
         categoryIcon: cat.icon,
-        categorySlug,
         checkedCount,
         total,
         percent,
@@ -103,10 +92,10 @@ export default function MyChecklistsView() {
         <section>
           <h2 className="text-base font-semibold text-slate-700 mb-4">진행 중 ({inProgress.length})</h2>
           <div className="space-y-3">
-            {inProgress.map(({ checklist, categoryName, categoryIcon, categorySlug, checkedCount, total, percent }) => (
+            {inProgress.map(({ checklist, categoryName, categoryIcon, checkedCount, total, percent }) => (
               <a
-                key={`${categorySlug}-${checklist.slug}`}
-                href={`/${categorySlug}/${checklist.slug}`}
+                key={checklist.slug}
+                href={`/checklist/${checklist.slug}`}
                 className="block bg-white border border-slate-200 rounded-xl px-5 py-4 hover:border-blue-300 hover:shadow-sm transition-all group"
               >
                 <div className="flex items-center justify-between mb-2">
@@ -138,10 +127,10 @@ export default function MyChecklistsView() {
         <section>
           <h2 className="text-base font-semibold text-slate-700 mb-4">완료 ({completed.length})</h2>
           <div className="space-y-3">
-            {completed.map(({ checklist, categoryName, categoryIcon, categorySlug, total }) => (
+            {completed.map(({ checklist, categoryName, categoryIcon, total }) => (
               <a
-                key={`${categorySlug}-${checklist.slug}`}
-                href={`/${categorySlug}/${checklist.slug}`}
+                key={checklist.slug}
+                href={`/checklist/${checklist.slug}`}
                 className="block bg-emerald-50 border border-emerald-200 rounded-xl px-5 py-4 hover:border-emerald-400 hover:shadow-sm transition-all group"
               >
                 <div className="flex items-center justify-between">

@@ -56,7 +56,7 @@ export default function SearchBar() {
           {results.slice(0, 8).map((cl) => (
             <a
               key={`${cl.categorySlug}-${cl.slug}`}
-              href={`/${cl.categorySlug}/${cl.slug}`}
+              href={`/checklist/${cl.slug}`}
               className="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0"
               onClick={() => setOpen(false)}
             >

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "TickTickList 개인정보처리방침",
+  description: "체크그리드 개인정보처리방침",
 };
 
 export default function PrivacyPage() {
@@ -15,7 +15,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-semibold text-slate-800 mb-3">1. 개요</h2>
           <p className="text-sm leading-relaxed">
-            TickTickList(이하 &ldquo;서비스&rdquo;)은 이용자의 개인정보를 중요하게 생각합니다.
+            체크그리드(이하 &ldquo;서비스&rdquo;)은 이용자의 개인정보를 중요하게 생각합니다.
             본 서비스는 이용자의 개인정보를 수집하거나 서버에 저장하지 않습니다.
             체크리스트의 진행 상황은 이용자의 기기 내 로컬 스토리지(Local Storage)에만 저장되며,
             외부 서버로 전송되지 않습니다.
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
           <p className="text-sm leading-relaxed">
             개인정보처리방침에 관한 문의사항이 있으시면 아래로 연락해 주세요.
           </p>
-          <p className="text-sm mt-2 text-slate-500">서비스명: TickTickList</p>
+          <p className="text-sm mt-2 text-slate-500">서비스명: 체크그리드</p>
           <p className="mt-2 text-[#8888AA]">이메일: donebystudio@gmail.com</p>
         </section>
       </div>
