@@ -83,6 +83,8 @@ export const lifeChecklists: Checklist[] = [
           { id: "c2-s1-4", text: "새 집 인터넷, TV 이전 설치 예약하기" },
           { id: "c2-s1-5", text: "전기, 수도, 가스 해지/이전 신청하기" },
           { id: "c2-s1-6", text: "우편물 전송 서비스 신청하기" },
+          { id: "c2-s1-7", text: "새 집 도배, 장판 교체 필요 시 업체 예약하기" },
+          { id: "c2-s1-8", text: "이사 당일 주차 공간 및 엘리베이터 사용 예약하기" },
         ],
       },
       {
@@ -94,6 +96,7 @@ export const lifeChecklists: Checklist[] = [
           { id: "c2-s2-4", text: "냉장고 음식 소진하고 전날 전원 끄기" },
           { id: "c2-s2-5", text: "세탁기 배수 후 물기 제거하기" },
           { id: "c2-s2-6", text: "귀중품과 중요 서류 따로 챙기기" },
+          { id: "c2-s2-7", text: "당일 필요한 생필품(세면도구, 충전기, 갈아입을 옷) 별도 가방에 챙기기" },
         ],
       },
       {
@@ -105,6 +108,7 @@ export const lifeChecklists: Checklist[] = [
           { id: "c2-s3-4", text: "짐 운반 후 파손 여부 바로 확인하기" },
           { id: "c2-s3-5", text: "이사 비용 정산하기" },
           { id: "c2-s3-6", text: "구 집 청소 후 열쇠 반납하기" },
+          { id: "c2-s3-7", text: "전기, 수도, 가스 최종 검침 수치 사진 촬영하기" },
         ],
       },
       {
@@ -116,6 +120,8 @@ export const lifeChecklists: Checklist[] = [
           { id: "c2-s4-4", text: "가스 안전 점검 받기" },
           { id: "c2-s4-5", text: "이웃에게 인사하기" },
           { id: "c2-s4-6", text: "분리수거 장소와 방법 확인하기" },
+          { id: "c2-s4-7", text: "관리비 납부 방법 및 금액 확인하기" },
+          { id: "c2-s4-8", text: "도어락 비밀번호 변경하기" },
         ],
       },
     ],
