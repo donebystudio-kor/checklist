@@ -36,11 +36,11 @@ export default function RootLayout({
       <head>
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-G5BSG6TNPR"
+          src="https://www.googletagmanager.com/gtag/js?id=G-FSXESQWFE4"
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-G5BSG6TNPR');`,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FSXESQWFE4');`,
           }}
         />
         <script
