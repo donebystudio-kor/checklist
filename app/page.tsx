@@ -5,6 +5,23 @@ export default function HomePage() {
   const totalChecklists = checklists.length;
   const totalItems = checklists.reduce((sum, cl) => sum + getTotalItems(cl), 0);
 
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "체크그리드 - 상황별 완벽 체크리스트",
+    "description": "자취, 이사, 취업, 여행, 결혼, 출산 등 인생의 중요한 순간마다 필요한 체크리스트를 한곳에서 확인하세요.",
+    "url": "https://checklist-seven-woad.vercel.app",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": categories.map((cat, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": cat.name,
+        "url": `https://checklist-seven-woad.vercel.app/#${cat.slug}`,
+      })),
+    },
+  };
+
   const popular = [
     "jjatu-start", "interview", "overseas-travel", "jeonse-contract",
     "wedding", "childbirth", "resignation", "laptop",
@@ -12,6 +29,10 @@ export default function HomePage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       {/* Hero */}
       <section className="text-center mb-12">
         <h1 className="text-4xl font-bold text-slate-900 mb-3 tracking-tight">

@@ -39,11 +39,42 @@ export default async function ChecklistPage({
   const cat = getCategoryBySlug(cl.categorySlug);
   if (!cat) notFound();
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "홈",
+        "item": "https://checklist-seven-woad.vercel.app",
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": cat.name,
+        "item": `https://checklist-seven-woad.vercel.app/#${cat.slug}`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": cl.title,
+        "item": `https://checklist-seven-woad.vercel.app/checklist/${cl.slug}`,
+      },
+    ],
+  };
+
   return (
-    <ChecklistView
-      checklist={cl}
-      categoryName={cat.name}
-      categoryIcon={cat.icon}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ChecklistView
+        checklist={cl}
+        categoryName={cat.name}
+        categoryIcon={cat.icon}
+      />
+    </>
   );
 }
